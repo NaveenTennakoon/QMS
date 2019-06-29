@@ -28,6 +28,24 @@ public class userForm extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
         req_txtfield.setEditable(false);
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql = "SELECT productService FROM call_quotations";
+            PreparedStatement state = conn.prepareStatement(sql);
+            ResultSet rs = state.executeQuery();
+            product_cmbBox.addItem("--select--");
+            while (rs.next()){
+                String proSer = rs.getString("productService");
+                product_cmbBox.addItem(proSer);
+            }  
+            product_cmbBox.setSelectedItem("--select--");
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
+        
     }
 
     /**
@@ -64,7 +82,21 @@ public class userForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         product_cmbBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        product_cmbBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        product_cmbBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                product_cmbBoxItemStateChanged(evt);
+            }
+        });
+        product_cmbBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                product_cmbBoxMouseClicked(evt);
+            }
+        });
+        product_cmbBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                product_cmbBoxActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel1.setText("Select Product/Service");
@@ -136,6 +168,7 @@ public class userForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel7.setText("Total Units Required");
 
+        req_txtfield.setEditable(false);
         req_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         req_txtfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,6 +356,37 @@ public class userForm extends javax.swing.JFrame {
     private void req_txtfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_req_txtfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_req_txtfieldActionPerformed
+
+    private void product_cmbBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_product_cmbBoxActionPerformed
+        try{
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql = "SELECT quantity FROM call_quotations WHERE productService=?";
+            PreparedStatement state = conn.prepareStatement(sql);       
+            Object selectedItem = product_cmbBox.getSelectedItem();
+            if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                String proSer = String.valueOf(rs.getInt("quantity"));
+                req_txtfield.setText(proSer);
+            }  
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }//GEN-LAST:event_product_cmbBoxActionPerformed
+
+    private void product_cmbBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_product_cmbBoxItemStateChanged
+        
+    }//GEN-LAST:event_product_cmbBoxItemStateChanged
+
+    private void product_cmbBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_cmbBoxMouseClicked
+        
+    }//GEN-LAST:event_product_cmbBoxMouseClicked
 
     /**
      * @param args the command line arguments
