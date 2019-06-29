@@ -32,7 +32,7 @@ public class userForm extends javax.swing.JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
-            String sql = "SELECT productService FROM call_quotations";
+            String sql = "SELECT productService FROM call_quotations WHERE status='open'";
             PreparedStatement state = conn.prepareStatement(sql);
             ResultSet rs = state.executeQuery();
             product_cmbBox.addItem("--select--");

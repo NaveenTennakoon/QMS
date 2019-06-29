@@ -1,6 +1,11 @@
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +25,24 @@ public class adminForm extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
+        status_txtfield.setEditable(false);
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql = "SELECT productService FROM call_quotations";
+            PreparedStatement state = conn.prepareStatement(sql);
+            ResultSet rs = state.executeQuery();
+            product_cmbBox.addItem("--select--");
+            while (rs.next()){
+                String proSer = rs.getString("productService");
+                product_cmbBox.addItem(proSer);
+            }  
+            product_cmbBox.setSelectedItem("--select--");
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -33,6 +56,12 @@ public class adminForm extends javax.swing.JFrame {
 
         logout_btn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        product_cmbBox = new javax.swing.JComboBox<>();
+        close_btn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        status_txtfield = new javax.swing.JTextField();
+        open_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,7 +75,7 @@ public class adminForm extends javax.swing.JFrame {
                 logout_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(787, 10, 140, 40));
+        getContentPane().add(logout_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 10, 140, 40));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton1.setText("ADD PRODUCT/SERVICE");
@@ -56,6 +85,45 @@ public class adminForm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 45));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("See called quotations");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        product_cmbBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        product_cmbBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                product_cmbBoxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(product_cmbBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 140, 30));
+
+        close_btn.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        close_btn.setText("CLOSE QUOTATION");
+        close_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                close_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(close_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 160, 40));
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Status");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+
+        status_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        getContentPane().add(status_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 90, 40));
+
+        open_btn.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        open_btn.setText("RE-OPEN QUOTATION");
+        open_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                open_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(open_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 180, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -74,6 +142,89 @@ public class adminForm extends javax.swing.JFrame {
         addProduct addproduct = new addProduct();
         addproduct.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
+        try{         
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql = "UPDATE call_quotations SET status='Closed' WHERE productService=?";
+            PreparedStatement state = conn.prepareStatement(sql);       
+            Object selectedItem = product_cmbBox.getSelectedItem();
+            if(selectedItem == "--select--"){
+                JOptionPane.showMessageDialog(null,"Please select an item first");
+            }
+            else if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            state.executeUpdate();
+            sql = "SELECT status FROM call_quotations WHERE productService=?";
+            state = conn.prepareStatement(sql);
+            if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                status_txtfield.setText(rs.getString("status"));
+            }  
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }//GEN-LAST:event_close_btnActionPerformed
+
+    private void open_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_open_btnActionPerformed
+        try{         
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql = "UPDATE call_quotations SET status='Open' WHERE productService=?";
+            PreparedStatement state = conn.prepareStatement(sql);       
+            Object selectedItem = product_cmbBox.getSelectedItem();
+            if(selectedItem == "--select--"){
+                JOptionPane.showMessageDialog(null,"Please select an item first");
+            }
+            else if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            state.executeUpdate(); 
+            sql = "SELECT status FROM call_quotations WHERE productService=?";
+            state = conn.prepareStatement(sql);
+            if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                status_txtfield.setText(rs.getString("status"));
+            }  
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }//GEN-LAST:event_open_btnActionPerformed
+
+    private void product_cmbBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_product_cmbBoxActionPerformed
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql = "SELECT status FROM call_quotations WHERE productService=?";
+            PreparedStatement state = conn.prepareStatement(sql);       
+            Object selectedItem = product_cmbBox.getSelectedItem();
+            if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                status_txtfield.setText(rs.getString("status"));
+            }  
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }//GEN-LAST:event_product_cmbBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,9 +262,15 @@ public class adminForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton close_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton logout_btn;
+    private javax.swing.JButton open_btn;
+    private javax.swing.JComboBox<String> product_cmbBox;
+    private javax.swing.JTextField status_txtfield;
     // End of variables declaration//GEN-END:variables
 
 }
