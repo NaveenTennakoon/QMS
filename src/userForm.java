@@ -1,6 +1,11 @@
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,26 +38,95 @@ public class userForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngrp = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         product_cmbBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         addquotation_btn = new javax.swing.JButton();
         logout_btn = new javax.swing.JButton();
+        company_txtfield = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        qty_txtfield = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        notes_text = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        price_txtfield = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        yes_rb = new javax.swing.JRadioButton();
+        no_rb = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        product_cmbBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         product_cmbBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel1.setText("Select Product/Service");
 
         addquotation_btn.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        addquotation_btn.setText("Send Quotation");
+        addquotation_btn.setText("SEND QUOTATION");
+        addquotation_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addquotation_btnActionPerformed(evt);
+            }
+        });
 
         logout_btn.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        logout_btn.setText("goto Login");
+        logout_btn.setText("BACK TO LOGIN");
         logout_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logout_btnActionPerformed(evt);
+            }
+        });
+
+        company_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        company_txtfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                company_txtfieldActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel2.setText("Company Name");
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setText("Quantity");
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel4.setText("Unit Price (Rs.)");
+
+        notes_text.setColumns(20);
+        notes_text.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        notes_text.setRows(5);
+        jScrollPane1.setViewportView(notes_text);
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel5.setText("Have you given us quotations previously?");
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel6.setText("Notes/Comments");
+
+        btngrp.add(yes_rb);
+        yes_rb.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        yes_rb.setText("Yes");
+
+        btngrp.add(no_rb);
+        no_rb.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        no_rb.setText("No");
+        no_rb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no_rbActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton1.setText("CLEAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -63,28 +137,85 @@ public class userForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
-                .addComponent(logout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addquotation_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(yes_rb)
+                        .addGap(18, 18, 18)
+                        .addComponent(no_rb)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(77, 77, 77)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(qty_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(price_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(company_txtfield)))
+                            .addComponent(jLabel2)
+                            .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(166, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(logout_btn))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(addquotation_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(logout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 382, Short.MAX_VALUE)
-                .addComponent(addquotation_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(company_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(qty_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(price_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(yes_rb)
+                    .addComponent(no_rb))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(78, 78, 78))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addquotation_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -107,6 +238,66 @@ public class userForm extends javax.swing.JFrame {
         selectuser.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_logout_btnActionPerformed
+
+    private void company_txtfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_company_txtfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_company_txtfieldActionPerformed
+
+    private void no_rbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_rbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_no_rbActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        company_txtfield.setText("");
+        qty_txtfield.setText("");
+        price_txtfield.setText("");
+        notes_text.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addquotation_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addquotation_btnActionPerformed
+        if(company_txtfield.getText().trim().isEmpty() || qty_txtfield.getText().trim().isEmpty() || price_txtfield.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Required fields must be filled to add quotation");
+            company_txtfield.setText("");
+            qty_txtfield.setText("");
+            price_txtfield.setText("");
+            notes_text.setText("");
+        }
+        else{
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+                String sql = "INSERT INTO quotations (product,companyName,quantity,unitPrice,prevQuotations,notes) VALUES (?,?,?,?,?,?) ";
+                PreparedStatement state = conn.prepareStatement(sql);
+                
+                Object selectedItem = product_cmbBox.getSelectedItem();
+                if (selectedItem != null){
+                    String selectedItemStr = selectedItem.toString();
+                    state.setString(1, selectedItemStr);
+                }
+                
+                state.setString(2, company_txtfield.getText());
+                state.setString(3, qty_txtfield.getText());
+                state.setString(4, price_txtfield.getText());
+                state.setString(5, btngrp.getSelection().getActionCommand());
+                state.setString(6, notes_text.getText());
+                ResultSet rs = state.executeQuery();
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "Quotation successfully sent to the Provider");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, evt);
+                    company_txtfield.setText("");
+                    qty_txtfield.setText("");
+                    price_txtfield.setText("");
+                    notes_text.setText("");
+                }
+                conn.close();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null,e);
+            }
+        }
+    }//GEN-LAST:event_addquotation_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,9 +336,23 @@ public class userForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addquotation_btn;
+    private javax.swing.ButtonGroup btngrp;
+    private javax.swing.JTextField company_txtfield;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logout_btn;
+    private javax.swing.JRadioButton no_rb;
+    private javax.swing.JTextArea notes_text;
+    private javax.swing.JTextField price_txtfield;
     private javax.swing.JComboBox<String> product_cmbBox;
+    private javax.swing.JTextField qty_txtfield;
+    private javax.swing.JRadioButton yes_rb;
     // End of variables declaration//GEN-END:variables
 }
