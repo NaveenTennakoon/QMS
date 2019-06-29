@@ -1,6 +1,13 @@
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,12 +24,14 @@ public class SelectUser extends javax.swing.JFrame {
     /**
      * Creates new form SelectUser
      */
-    public SelectUser() {
-        initComponents();
+    public SelectUser() {      
+        initComponents();        
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
+        setResizable(false);
+        setBounds(size.width/2-getWidth()/2, size.height/2-getHeight()/2, 400, 298);       
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,10 +45,13 @@ public class SelectUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         select_admin = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 298));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         select_admin.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         select_admin.setText("Administrator");
@@ -48,6 +60,7 @@ public class SelectUser extends javax.swing.JFrame {
                 select_adminActionPerformed(evt);
             }
         });
+        jPanel1.add(select_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 162, 52));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton1.setText("Provide a Quotation");
@@ -56,33 +69,18 @@ public class SelectUser extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 162, 55));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(select_admin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                .addContainerGap(149, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(select_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/userselect.jpg"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,14 +91,12 @@ public class SelectUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void select_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_adminActionPerformed
-        // TODO add your handling code here:
         LoginForm loginform = new LoginForm();
         loginform.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_select_adminActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         userForm userform = new userForm();
         userform.setVisible(true);
         setVisible(false);
@@ -143,6 +139,7 @@ public class SelectUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton select_admin;
     // End of variables declaration//GEN-END:variables

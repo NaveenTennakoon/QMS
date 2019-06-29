@@ -140,13 +140,11 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameActionPerformed
 
     private void clear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_btnActionPerformed
-        // TODO add your handling code here:
         username.setText("");
         password.setText("");
     }//GEN-LAST:event_clear_btnActionPerformed
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
-        // TODO add your handling code here:
         if(username.getText().trim().isEmpty() || password.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Cannot sign in with empty fields");
             username.setText("");
@@ -162,7 +160,7 @@ public class LoginForm extends javax.swing.JFrame {
                 state.setString(2, password.getText());   
                 ResultSet rs = state.executeQuery();
                 if(rs.next()){
-                    JOptionPane.showMessageDialog(null, "Username and Password exists");
+                    JOptionPane.showMessageDialog(null, "Successfully Logged In");
                     adminForm adminform = new adminForm();
                     adminform.setVisible(true);
                     setVisible(false);
