@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2019 at 01:24 PM
+-- Generation Time: Jun 29, 2019 at 02:07 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -31,17 +31,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `call_quotations` (
   `SID` int(11) NOT NULL,
   `productService` text NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `Status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `call_quotations`
 --
 
-INSERT INTO `call_quotations` (`SID`, `productService`, `quantity`) VALUES
-(1, 'Books', 1000),
-(2, 'Pens', 500),
-(3, 'Pencils', 450);
+INSERT INTO `call_quotations` (`SID`, `productService`, `quantity`, `Status`) VALUES
+(1, 'Books', 1000, 'Open'),
+(2, 'Pens', 500, 'Closed'),
+(3, 'Pencils', 450, 'Open');
 
 -- --------------------------------------------------------
 
