@@ -1,4 +1,6 @@
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,6 +24,9 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        Toolkit toolkit = getToolkit();
+        Dimension size = toolkit.getScreenSize();
+        setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
     }
 
     /**
@@ -142,29 +147,36 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
         // TODO add your handling code here:
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
-            String sql = "Select * from login_details where username=? and password=?";
-            PreparedStatement state = conn.prepareStatement(sql);
-            state.setString(1, username.getText());
-            state.setString(2, password.getText());
-            ResultSet rs = state.executeQuery();
-            if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Usename and Password exists");
-                MainForm mainform = new MainForm();
-                mainform.setVisible(true);
-                setVisible(false);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Username and Password do not exist");
-                username.setText("");
-                password.setText("");
-            }
-            conn.close();
+        if(username.getText().trim().isEmpty() || password.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Cannot sign in with empty fields");
+            username.setText("");
+            password.setText("");
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
+        else{
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+                String sql = "Select * from login_details where username=? and password=?";
+                PreparedStatement state = conn.prepareStatement(sql);
+                state.setString(1, username.getText());
+                state.setString(2, password.getText());   
+                ResultSet rs = state.executeQuery();
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "Username and Password exists");
+                    adminForm adminform = new adminForm();
+                    adminform.setVisible(true);
+                    setVisible(false);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Username and Password do not exist");
+                    username.setText("");
+                    password.setText("");
+                }
+                conn.close();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null,e);
+            }
         }
     }//GEN-LAST:event_login_btnActionPerformed
 
