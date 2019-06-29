@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2019 at 02:07 PM
+-- Generation Time: Jun 29, 2019 at 03:58 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -42,7 +42,7 @@ CREATE TABLE `call_quotations` (
 INSERT INTO `call_quotations` (`SID`, `productService`, `quantity`, `Status`) VALUES
 (1, 'Books', 1000, 'Open'),
 (2, 'Pens', 500, 'Closed'),
-(3, 'Pencils', 450, 'Open');
+(3, 'Pencils', 600, 'Open');
 
 -- --------------------------------------------------------
 
@@ -71,13 +71,21 @@ INSERT INTO `login_details` (`ID`, `username`, `password`) VALUES
 
 CREATE TABLE `quotations` (
   `QID` int(11) NOT NULL,
-  `companyName` varchar(100) NOT NULL,
+  `companyName` text NOT NULL,
   `quantity` int(11) NOT NULL,
   `unitPrice` int(11) NOT NULL,
-  `prevQuotations` tinyint(1) NOT NULL,
-  `notes` varchar(300) DEFAULT NULL,
+  `prevQuotations` text NOT NULL,
+  `notes` text DEFAULT NULL,
   `SID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `quotations`
+--
+
+INSERT INTO `quotations` (`QID`, `companyName`, `quantity`, `unitPrice`, `prevQuotations`, `notes`, `SID`) VALUES
+(1, 'ABCD', 100, 50, 'No', 'Nothing to say here for you', 1),
+(2, 'XYZ Travels', 30, 12, 'Yes', 'Nothing to say here either', 3);
 
 --
 -- Indexes for dumped tables
@@ -122,7 +130,7 @@ ALTER TABLE `login_details`
 -- AUTO_INCREMENT for table `quotations`
 --
 ALTER TABLE `quotations`
-  MODIFY `QID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `QID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
