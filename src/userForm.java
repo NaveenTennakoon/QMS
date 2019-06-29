@@ -28,6 +28,8 @@ public class userForm extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
         req_txtfield.setEditable(false);
+        yes_rb.setActionCommand("Yes");
+        no_rb.setActionCommand("No");
         
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -147,6 +149,11 @@ public class userForm extends javax.swing.JFrame {
         btngrp.add(yes_rb);
         yes_rb.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         yes_rb.setText("Yes");
+        yes_rb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes_rbActionPerformed(evt);
+            }
+        });
 
         btngrp.add(no_rb);
         no_rb.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -320,32 +327,34 @@ public class userForm extends javax.swing.JFrame {
             try{
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
-                String sql = "INSERT INTO quotations (product,companyName,quantity,unitPrice,prevQuotations,notes) VALUES (?,?,?,?,?,?) ";
-                PreparedStatement state = conn.prepareStatement(sql);
-                
+                String presql = "SELECT SID FROM call_quotations WHERE productService=?";
+                String sql = "INSERT INTO quotations (SID,companyName,quantity,unitPrice,prevQuotations,notes) VALUES (?,?,?,?,?,?) ";
+                PreparedStatement prestate = conn.prepareStatement(presql);
                 Object selectedItem = product_cmbBox.getSelectedItem();
                 if (selectedItem != null){
                     String selectedItemStr = selectedItem.toString();
-                    state.setString(1, selectedItemStr);
+                    prestate.setString(1, selectedItemStr);
                 }
-                
+                ResultSet rs = prestate.executeQuery();
+                PreparedStatement state = conn.prepareStatement(sql);
+                while(rs.next()){
+                    String sid = String.valueOf(rs.getInt("SID"));
+                    state.setString(1, sid);
+                }
                 state.setString(2, company_txtfield.getText());
                 state.setString(3, qty_txtfield.getText());
                 state.setString(4, price_txtfield.getText());
+                 JOptionPane.showMessageDialog(null,"E");
                 state.setString(5, btngrp.getSelection().getActionCommand());
+                 JOptionPane.showMessageDialog(null,"F");
                 state.setString(6, notes_text.getText());
-                ResultSet rs = state.executeQuery();
-                if(rs.next()){
+                state.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Quotation successfully sent to the Provider");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, evt);
                     company_txtfield.setText("");
                     qty_txtfield.setText("");
                     price_txtfield.setText("");
                     notes_text.setText("");
-                }
-                conn.close();
+                    conn.close();
             }
             catch(Exception e){
                 JOptionPane.showMessageDialog(null,e);
@@ -387,6 +396,10 @@ public class userForm extends javax.swing.JFrame {
     private void product_cmbBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_product_cmbBoxMouseClicked
         
     }//GEN-LAST:event_product_cmbBoxMouseClicked
+
+    private void yes_rbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes_rbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yes_rbActionPerformed
 
     /**
      * @param args the command line arguments
