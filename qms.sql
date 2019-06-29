@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2019 at 12:07 PM
+-- Generation Time: Jun 29, 2019 at 01:24 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -33,6 +33,15 @@ CREATE TABLE `call_quotations` (
   `productService` text NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `call_quotations`
+--
+
+INSERT INTO `call_quotations` (`SID`, `productService`, `quantity`) VALUES
+(1, 'Books', 1000),
+(2, 'Pens', 500),
+(3, 'Pencils', 450);
 
 -- --------------------------------------------------------
 
@@ -100,7 +109,7 @@ ALTER TABLE `quotations`
 -- AUTO_INCREMENT for table `call_quotations`
 --
 ALTER TABLE `call_quotations`
-  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login_details`
