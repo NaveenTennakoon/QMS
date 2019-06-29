@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2019 at 08:00 AM
+-- Generation Time: Jun 29, 2019 at 12:07 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `call_quotations` (
   `SID` int(11) NOT NULL,
-  `product/service` text NOT NULL,
+  `productService` text NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -66,7 +66,7 @@ CREATE TABLE `quotations` (
   `unitPrice` int(11) NOT NULL,
   `prevQuotations` tinyint(1) NOT NULL,
   `notes` varchar(300) DEFAULT NULL,
-  `product` varchar(50) NOT NULL
+  `SID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -89,7 +89,8 @@ ALTER TABLE `login_details`
 -- Indexes for table `quotations`
 --
 ALTER TABLE `quotations`
-  ADD PRIMARY KEY (`QID`);
+  ADD PRIMARY KEY (`QID`),
+  ADD KEY `SID_fk` (`SID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -99,7 +100,7 @@ ALTER TABLE `quotations`
 -- AUTO_INCREMENT for table `call_quotations`
 --
 ALTER TABLE `call_quotations`
-  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `login_details`
@@ -112,6 +113,16 @@ ALTER TABLE `login_details`
 --
 ALTER TABLE `quotations`
   MODIFY `QID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `quotations`
+--
+ALTER TABLE `quotations`
+  ADD CONSTRAINT `SID_fk` FOREIGN KEY (`SID`) REFERENCES `call_quotations` (`SID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

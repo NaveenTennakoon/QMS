@@ -27,6 +27,7 @@ public class userForm extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
+        req_txtfield.setEditable(false);
     }
 
     /**
@@ -57,6 +58,8 @@ public class userForm extends javax.swing.JFrame {
         yes_rb = new javax.swing.JRadioButton();
         no_rb = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        req_txtfield = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,6 +133,16 @@ public class userForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel7.setText("Total Units Required");
+
+        req_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        req_txtfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                req_txtfieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -145,7 +158,7 @@ public class userForm extends javax.swing.JFrame {
                         .addComponent(no_rb)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(77, 77, 77)
@@ -158,7 +171,12 @@ public class userForm extends javax.swing.JFrame {
                                         .addComponent(price_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(company_txtfield)))
                             .addComponent(jLabel2)
-                            .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(req_txtfield)))
                         .addContainerGap(166, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -185,7 +203,10 @@ public class userForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(logout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(product_cmbBox, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(req_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -299,6 +320,10 @@ public class userForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addquotation_btnActionPerformed
 
+    private void req_txtfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_req_txtfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_req_txtfieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -345,6 +370,7 @@ public class userForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logout_btn;
@@ -353,6 +379,7 @@ public class userForm extends javax.swing.JFrame {
     private javax.swing.JTextField price_txtfield;
     private javax.swing.JComboBox<String> product_cmbBox;
     private javax.swing.JTextField qty_txtfield;
+    private javax.swing.JTextField req_txtfield;
     private javax.swing.JRadioButton yes_rb;
     // End of variables declaration//GEN-END:variables
 }
