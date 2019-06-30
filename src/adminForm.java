@@ -41,7 +41,7 @@ public class adminForm extends javax.swing.JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
-            String sql = "SELECT quotations.QID,quotations.companyName,quotations.quantity,quotations.unitPrice,quotations.prevQuotations,quotations.notes from quotations INNER JOIN call_quotations ON quotations.SID=call_quotations.SID WHERE call_quotations.productService=?";
+            String sql = "SELECT quotations.QID,quotations.companyName,quotations.quantity,quotations.unitPrice,quotations.prevQuotations,quotations.notes,quotations.contact from quotations INNER JOIN call_quotations ON quotations.SID=call_quotations.SID WHERE call_quotations.productService=?";
             PreparedStatement state = conn.prepareStatement(sql);
             Object selectedItem = product_cmbBox.getSelectedItem();
             if (selectedItem != null){
@@ -51,7 +51,7 @@ public class adminForm extends javax.swing.JFrame {
             ResultSet rs = state.executeQuery();
             User user;
             while(rs.next()){
-                user = new User(rs.getInt("QID"), rs.getInt("quantity"), rs.getInt("unitPrice"), rs.getString("companyName"), rs.getString("prevQuotations"), rs.getString("notes"));
+                user = new User(rs.getInt("QID"), rs.getInt("quantity"), rs.getInt("unitPrice"), rs.getString("companyName"), rs.getString("prevQuotations"), rs.getString("notes"), rs.getInt("contact"));
                 usersList.add(user);
             }
         }
@@ -64,7 +64,7 @@ public class adminForm extends javax.swing.JFrame {
     public void show_user(){
         ArrayList<User> list = userList();
         DefaultTableModel model = (DefaultTableModel)quote_tbl.getModel();
-        Object[] row = new Object[6];
+        Object[] row = new Object[7];
         model.setRowCount(0);
         for(int i=0;i<list.size();i++){
             row[0] = list.get(i).getqid();
@@ -73,6 +73,7 @@ public class adminForm extends javax.swing.JFrame {
             row[3] = list.get(i).getprice();
             row[4] = list.get(i).getprevq();
             row[5] = list.get(i).getnotes();
+            row[6] = list.get(i).getcontact();
             model.addRow(row);
         }
     }
@@ -188,11 +189,11 @@ public class adminForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "QID", "Company Name", "Quantity", "Unit Price", "Any Previous Quotations?", "Notes"
+                "QID", "Company Name", "Quantity", "Unit Price", "Any Previous Quotations?", "Notes", "Contact"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -210,7 +211,7 @@ public class adminForm extends javax.swing.JFrame {
                 delete_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(delete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 610, 170, 40));
+        getContentPane().add(delete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 610, 180, 40));
 
         refresh_btn.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         refresh_btn.setText("Refresh");

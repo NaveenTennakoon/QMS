@@ -61,6 +61,8 @@ public class userForm extends javax.swing.JFrame {
         req_txtfield = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        cnt_txtfield = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,25 +116,25 @@ public class userForm extends javax.swing.JFrame {
                 company_txtfieldActionPerformed(evt);
             }
         });
-        jPanel1.add(company_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 145, 307, 34));
+        jPanel1.add(company_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 307, 34));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Company Name");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 44));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, 44));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Quantity");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
         qty_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jPanel1.add(qty_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 70, 34));
+        jPanel1.add(qty_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 70, 34));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Unit Price (Rs.)");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         notes_text.setColumns(20);
         notes_text.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -145,7 +147,7 @@ public class userForm extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Have you given us quotations previously?");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 284, -1, -1));
-        jPanel1.add(price_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 234, 70, 34));
+        jPanel1.add(price_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 70, 34));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,7 +185,7 @@ public class userForm extends javax.swing.JFrame {
                 req_txtfieldActionPerformed(evt);
             }
         });
-        jPanel1.add(req_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 70, 37));
+        jPanel1.add(req_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 60, 37));
 
         jButton1.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         jButton1.setText("Clear");
@@ -197,7 +199,15 @@ public class userForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Total Units Required");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Contact Number");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        cnt_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jPanel1.add(cnt_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 200, 34));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main.jpg"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 570));
@@ -235,6 +245,7 @@ public class userForm extends javax.swing.JFrame {
         qty_txtfield.setText("");
         price_txtfield.setText("");
         notes_text.setText("");
+        cnt_txtfield.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addquotation_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addquotation_btnActionPerformed
@@ -244,13 +255,14 @@ public class userForm extends javax.swing.JFrame {
             qty_txtfield.setText("");
             price_txtfield.setText("");
             notes_text.setText("");
+             cnt_txtfield.setText("");
         }
         else{
             try{
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
                 String presql = "SELECT SID FROM call_quotations WHERE productService=?";
-                String sql = "INSERT INTO quotations (SID,companyName,quantity,unitPrice,prevQuotations,notes) VALUES (?,?,?,?,?,?) ";
+                String sql = "INSERT INTO quotations (SID,companyName,quantity,unitPrice,prevQuotations,notes,contact) VALUES (?,?,?,?,?,?,?) ";
                 PreparedStatement prestate = conn.prepareStatement(presql);
                 Object selectedItem = product_cmbBox.getSelectedItem();
                 if (selectedItem != null){
@@ -268,12 +280,14 @@ public class userForm extends javax.swing.JFrame {
                 state.setString(4, price_txtfield.getText());
                 state.setString(5, btngrp.getSelection().getActionCommand());
                 state.setString(6, notes_text.getText());
+                state.setString(7, cnt_txtfield.getText());
                 state.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Quotation successfully sent to the Provider");
                     company_txtfield.setText("");
                     qty_txtfield.setText("");
                     price_txtfield.setText("");
                     notes_text.setText("");
+                    cnt_txtfield.setText("");
                     conn.close();
             }
             catch(Exception e){
@@ -336,6 +350,7 @@ public class userForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addquotation_btn;
     private javax.swing.ButtonGroup btngrp;
+    private javax.swing.JTextField cnt_txtfield;
     private javax.swing.JTextField company_txtfield;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -346,6 +361,7 @@ public class userForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logout_btn;
