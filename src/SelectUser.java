@@ -34,6 +34,7 @@ public class SelectUser extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 298));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        select_admin.setBackground(new java.awt.Color(153, 153, 255));
         select_admin.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         select_admin.setText("Administrator");
         select_admin.addActionListener(new java.awt.event.ActionListener() {
@@ -41,8 +42,9 @@ public class SelectUser extends javax.swing.JFrame {
                 select_adminActionPerformed(evt);
             }
         });
-        jPanel1.add(select_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 162, 52));
+        jPanel1.add(select_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 162, 52));
 
+        jButton1.setBackground(new java.awt.Color(153, 153, 255));
         jButton1.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         jButton1.setText("User");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -50,36 +52,38 @@ public class SelectUser extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 162, 55));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 165, 162, 50));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/login.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 280));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/business-3528035__340.jpg"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, 0, 570, 330));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void select_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_adminActionPerformed
-        LoginForm loginform = new LoginForm();
-        loginform.setVisible(true);
-        setVisible(false);
-    }//GEN-LAST:event_select_adminActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         userForm userform = new userForm();
         userform.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void select_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_adminActionPerformed
+        LoginForm loginform = new LoginForm();
+        loginform.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_select_adminActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

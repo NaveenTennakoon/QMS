@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 public class adminForm extends javax.swing.JFrame {
 
@@ -41,7 +42,7 @@ public class adminForm extends javax.swing.JFrame {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
-            String sql = "SELECT quotations.QID,quotations.companyName,quotations.quantity,quotations.unitPrice,quotations.prevQuotations,quotations.notes,quotations.contact from quotations INNER JOIN call_quotations ON quotations.SID=call_quotations.SID WHERE call_quotations.productService=?";
+            String sql = "SELECT quotations.QID,quotations.companyName,quotations.quantity,quotations.unitPrice,quotations.prevQuotations,quotations.notes,quotations.contact from quotations  INNER JOIN call_quotations ON quotations.SID=call_quotations.SID WHERE call_quotations.productService=?";
             PreparedStatement state = conn.prepareStatement(sql);
             Object selectedItem = product_cmbBox.getSelectedItem();
             if (selectedItem != null){
@@ -77,6 +78,25 @@ public class adminForm extends javax.swing.JFrame {
             model.addRow(row);
         }
     }
+    
+    private void updateTable(){
+        String sql = "SELECT * from quotations INNER JOIN call_quotations ON quotations.SID=call_quotations.SID WHERE call_quotations.productService=?";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            Object selectedItem = product_cmbBox.getSelectedItem();
+            PreparedStatement state = conn.prepareStatement(sql);
+            if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                state.setString(1, selectedItemStr);
+            }
+            ResultSet rs = state.executeQuery();
+            quote_tbl.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -97,6 +117,7 @@ public class adminForm extends javax.swing.JFrame {
         quote_tbl = new javax.swing.JTable();
         delete_btn = new javax.swing.JButton();
         refresh_btn = new javax.swing.JButton();
+        approve_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,8 +142,8 @@ public class adminForm extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 40));
 
-        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 0, 255));
         jLabel2.setText("See called quotations");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
@@ -149,7 +170,7 @@ public class adminForm extends javax.swing.JFrame {
         getContentPane().add(close_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 160, 40));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(51, 0, 255));
         jLabel3.setText("Status");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
@@ -166,9 +187,15 @@ public class adminForm extends javax.swing.JFrame {
         getContentPane().add(open_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 190, 40));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(51, 0, 255));
         jLabel4.setText("Qty");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        qty_txtfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                qty_txtfieldActionPerformed(evt);
+            }
+        });
         getContentPane().add(qty_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 90, 40));
 
         setqty_btn.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
@@ -202,7 +229,7 @@ public class adminForm extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(quote_tbl);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 920, 330));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 920, 190));
 
         delete_btn.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         delete_btn.setText("Delete Quotation");
@@ -211,7 +238,7 @@ public class adminForm extends javax.swing.JFrame {
                 delete_btnActionPerformed(evt);
             }
         });
-        getContentPane().add(delete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 610, 180, 40));
+        getContentPane().add(delete_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 540, 180, 40));
 
         refresh_btn.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         refresh_btn.setText("Refresh");
@@ -222,8 +249,17 @@ public class adminForm extends javax.swing.JFrame {
         });
         getContentPane().add(refresh_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 100, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        approve_btn.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        approve_btn.setText("Approve Quotation");
+        approve_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approve_btnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(approve_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 200, 40));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/creative-business-design-workspace-mock-up-vector-21636343.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -230, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -411,6 +447,45 @@ public class adminForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_delete_btnActionPerformed
 
+    private void qty_txtfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qty_txtfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qty_txtfieldActionPerformed
+
+    private void approve_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approve_btnActionPerformed
+        int row=quote_tbl.getSelectedRow();
+        String cell= quote_tbl.getModel().getValueAt(row,0).toString();
+        String qty = quote_tbl.getModel().getValueAt(row,2).toString();
+        String current = qty_txtfield.getText();
+        qty_txtfield.setText(String.valueOf(Integer.parseInt(current)-Integer.parseInt(qty)));
+        String sql="DELETE FROM quotations where QID = " + cell;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/qms", "root", "");
+            String sql1 = "UPDATE call_quotations SET quantity=? WHERE productService=?";
+            PreparedStatement state1 = conn.prepareStatement(sql1);       
+            Object selectedItem = product_cmbBox.getSelectedItem();
+            if(selectedItem == "--select--"){
+                JOptionPane.showMessageDialog(null,"Please select an item first");
+            }
+            else if (selectedItem != null){
+                String selectedItemStr = selectedItem.toString();
+                int quty = Integer.parseInt(qty_txtfield.getText());
+                state1.setInt(1, quty);
+                state1.setString(2, selectedItemStr);
+            }
+            state1.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Quantity successfully updated");
+            PreparedStatement state = conn.prepareStatement(sql);
+            state.execute();
+            JOptionPane.showMessageDialog(null,"Quotation approved successfully");
+            updateTable();            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+        
+    }//GEN-LAST:event_approve_btnActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -420,6 +495,7 @@ public class adminForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton approve_btn;
     private javax.swing.JButton close_btn;
     private javax.swing.JButton delete_btn;
     private javax.swing.JButton jButton1;

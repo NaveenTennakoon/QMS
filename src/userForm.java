@@ -13,7 +13,7 @@ public class userForm extends javax.swing.JFrame {
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2, size.height/2-getHeight()/2);
-        req_txtfield.setEditable(false);
+        reqQty_txtfield.setEditable(false);
         yes_rb.setActionCommand("Yes");
         no_rb.setActionCommand("No");
         
@@ -58,8 +58,8 @@ public class userForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         yes_rb = new javax.swing.JRadioButton();
         no_rb = new javax.swing.JRadioButton();
-        req_txtfield = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        reqQty_txtfield = new javax.swing.JTextField();
+        clear_btn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         cnt_txtfield = new javax.swing.JTextField();
@@ -88,7 +88,6 @@ public class userForm extends javax.swing.JFrame {
         jPanel1.add(product_cmbBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 37));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Select Product/Service");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -119,12 +118,10 @@ public class userForm extends javax.swing.JFrame {
         jPanel1.add(company_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 307, 34));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Company Name");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, 44));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Quantity");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
@@ -132,7 +129,6 @@ public class userForm extends javax.swing.JFrame {
         jPanel1.add(qty_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 70, 34));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Unit Price (Rs.)");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
@@ -141,16 +137,14 @@ public class userForm extends javax.swing.JFrame {
         notes_text.setRows(5);
         jScrollPane1.setViewportView(notes_text);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 660, 190));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 550, 160));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Have you given us quotations previously?");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 284, -1, -1));
         jPanel1.add(price_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 70, 34));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Notes/Comments");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
 
@@ -178,38 +172,36 @@ public class userForm extends javax.swing.JFrame {
         });
         jPanel1.add(no_rb, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, -1, -1));
 
-        req_txtfield.setEditable(false);
-        req_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        req_txtfield.addActionListener(new java.awt.event.ActionListener() {
+        reqQty_txtfield.setEditable(false);
+        reqQty_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        reqQty_txtfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                req_txtfieldActionPerformed(evt);
+                reqQty_txtfieldActionPerformed(evt);
             }
         });
-        jPanel1.add(req_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 60, 37));
+        jPanel1.add(reqQty_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 60, 37));
 
-        jButton1.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        jButton1.setText("Clear");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        clear_btn.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        clear_btn.setText("Clear");
+        clear_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                clear_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 520, 89, 35));
+        jPanel1.add(clear_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 520, 89, 35));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Total Units Required");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Contact Number");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         cnt_txtfield.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jPanel1.add(cnt_txtfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 200, 34));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/main.jpg"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/photo-1513077202514-c511b41bd4c7 (2).jpg"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,13 +232,13 @@ public class userForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_no_rbActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void clear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_btnActionPerformed
         company_txtfield.setText("");
         qty_txtfield.setText("");
         price_txtfield.setText("");
         notes_text.setText("");
         cnt_txtfield.setText("");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_clear_btnActionPerformed
 
     private void addquotation_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addquotation_btnActionPerformed
         if(company_txtfield.getText().trim().isEmpty() || qty_txtfield.getText().trim().isEmpty() || price_txtfield.getText().trim().isEmpty()){
@@ -255,7 +247,7 @@ public class userForm extends javax.swing.JFrame {
             qty_txtfield.setText("");
             price_txtfield.setText("");
             notes_text.setText("");
-             cnt_txtfield.setText("");
+            cnt_txtfield.setText("");
         }
         else{
             try{
@@ -296,9 +288,9 @@ public class userForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addquotation_btnActionPerformed
 
-    private void req_txtfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_req_txtfieldActionPerformed
+    private void reqQty_txtfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reqQty_txtfieldActionPerformed
         
-    }//GEN-LAST:event_req_txtfieldActionPerformed
+    }//GEN-LAST:event_reqQty_txtfieldActionPerformed
 
     private void product_cmbBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_product_cmbBoxActionPerformed
         try{  
@@ -312,13 +304,13 @@ public class userForm extends javax.swing.JFrame {
                 state.setString(1, selectedItemStr);
             }
             if(selectedItem.toString()=="--select--"){
-                req_txtfield.setText("");
+                reqQty_txtfield.setText("");
             }
             else{
                 ResultSet rs = state.executeQuery();
                 while(rs.next()){
                     String proSer = String.valueOf(rs.getInt("quantity"));
-                    req_txtfield.setText(proSer);
+                    reqQty_txtfield.setText(proSer);
                 } 
             } 
         }
@@ -350,9 +342,9 @@ public class userForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addquotation_btn;
     private javax.swing.ButtonGroup btngrp;
+    private javax.swing.JButton clear_btn;
     private javax.swing.JTextField cnt_txtfield;
     private javax.swing.JTextField company_txtfield;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -370,7 +362,7 @@ public class userForm extends javax.swing.JFrame {
     private javax.swing.JTextField price_txtfield;
     private javax.swing.JComboBox<String> product_cmbBox;
     private javax.swing.JTextField qty_txtfield;
-    private javax.swing.JTextField req_txtfield;
+    private javax.swing.JTextField reqQty_txtfield;
     private javax.swing.JRadioButton yes_rb;
     // End of variables declaration//GEN-END:variables
 }
